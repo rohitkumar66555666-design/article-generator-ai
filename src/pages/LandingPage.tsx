@@ -5,68 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
 import ThemeToggle from "@/components/ThemeToggle";
-
-const features = [
-  {
-    icon: Sparkles,
-    title: "AI-Powered Articles",
-    description: "Generate comprehensive, SEO-optimized current affairs articles in seconds using advanced AI models.",
-  },
-  {
-    icon: BookOpen,
-    title: "Exam Focus Mode",
-    description: "Get UPSC, SSC & competitive exam-ready facts, key data points, and practice questions alongside every article.",
-  },
-  {
-    icon: FileText,
-    title: "SEO Metadata",
-    description: "Every article comes with an optimized title, meta description, and tags — ready to publish.",
-  },
-  {
-    icon: Copy,
-    title: "One-Click Export",
-    description: "Export formatted HTML for Blogger, WordPress, or copy raw article text instantly.",
-  },
-];
-
-const pricingPlans = [
-  {
-    name: "Free",
-    price: "₹0",
-    period: "forever",
-    description: "Perfect for getting started",
-    features: [
-      "3 articles per day",
-      "All current affairs topics",
-      "SEO metadata included",
-      "Blogger & WordPress export",
-      "Exam Focus Mode",
-    ],
-    cta: "Get Started Free",
-    highlighted: false,
-  },
-  {
-    name: "Pro",
-    price: "₹499",
-    period: "/month",
-    description: "For serious content creators",
-    features: [
-      "Unlimited articles",
-      "All current affairs topics",
-      "SEO metadata included",
-      "Blogger & WordPress export",
-      "Exam Focus Mode",
-      "Priority AI generation",
-      "Article history & bookmarks",
-    ],
-    cta: "Upgrade to Pro",
-    highlighted: true,
-  },
-];
+import LanguageSelector from "@/components/LanguageSelector";
+import { useI18n } from "@/contexts/I18nContext";
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const [googleLoading, setGoogleLoading] = useState(false);
+  const { t } = useI18n();
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
@@ -81,6 +26,34 @@ const LandingPage = () => {
     setGoogleLoading(false);
   };
 
+  const features = [
+    { icon: Sparkles, title: t("landing.features.ai.title"), description: t("landing.features.ai.desc") },
+    { icon: BookOpen, title: t("landing.features.exam.title"), description: t("landing.features.exam.desc") },
+    { icon: FileText, title: t("landing.features.seo.title"), description: t("landing.features.seo.desc") },
+    { icon: Copy, title: t("landing.features.export.title"), description: t("landing.features.export.desc") },
+  ];
+
+  const pricingPlans = [
+    {
+      name: t("landing.pricing.free"),
+      price: "₹0",
+      period: "forever",
+      description: t("landing.pricing.free.desc"),
+      features: [t("landing.pricing.f1"), t("landing.pricing.f2"), t("landing.pricing.f3"), t("landing.pricing.f4"), t("landing.pricing.f5")],
+      cta: t("landing.pricing.free.cta"),
+      highlighted: false,
+    },
+    {
+      name: t("landing.pricing.pro"),
+      price: "₹499",
+      period: "/month",
+      description: t("landing.pricing.pro.desc"),
+      features: [t("landing.pricing.f6"), t("landing.pricing.f2"), t("landing.pricing.f3"), t("landing.pricing.f4"), t("landing.pricing.f5"), t("landing.pricing.f7"), t("landing.pricing.f8")],
+      cta: t("landing.pricing.pro.cta"),
+      highlighted: true,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -93,12 +66,13 @@ const LandingPage = () => {
             <span className="font-heading font-bold text-lg">AI Current Affairs</span>
           </div>
           <div className="flex items-center gap-2">
+            <LanguageSelector />
             <ThemeToggle />
             <Button variant="ghost" onClick={() => navigate("/auth")}>
-              Sign In
+              {t("landing.nav.signIn")}
             </Button>
             <Button variant="accent" onClick={() => navigate("/auth")}>
-              Get Started
+              {t("landing.nav.getStarted")}
             </Button>
           </div>
         </div>
@@ -110,51 +84,35 @@ const LandingPage = () => {
         <div className="container mx-auto px-4 max-w-6xl py-20 md:py-32 text-center relative">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
             <Sparkles className="h-3.5 w-3.5" />
-            Powered by AI
+            {t("landing.hero.badge")}
           </div>
           <h1 className="font-heading text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mx-auto leading-[1.1]">
-            Current Affairs Articles,{" "}
-            <span className="text-accent">Generated in Seconds</span>
+            {t("landing.hero.title1")}{" "}
+            <span className="text-accent">{t("landing.hero.title2")}</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Enter any topic and get a comprehensive, SEO-optimized blog article with exam-ready insights — perfect for content creators and UPSC aspirants.
+            {t("landing.hero.subtitle")}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              variant="accent"
-              size="lg"
-              className="h-12 px-8 text-base gap-2"
-              onClick={() => navigate("/auth")}
-            >
-              Start Writing Free
+            <Button variant="accent" size="lg" className="h-12 px-8 text-base gap-2" onClick={() => navigate("/auth")}>
+              {t("landing.hero.cta")}
               <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 px-8 text-base gap-2"
-              disabled={googleLoading}
-              onClick={handleGoogleSignIn}
-            >
+            <Button variant="outline" size="lg" className="h-12 px-8 text-base gap-2" disabled={googleLoading} onClick={handleGoogleSignIn}>
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
-              {googleLoading ? "Please wait..." : "Sign in with Google"}
+              {googleLoading ? t("auth.pleaseWait") : "Sign in with Google"}
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 px-8 text-base"
-              onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              View Pricing
+            <Button variant="outline" size="lg" className="h-12 px-8 text-base" onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}>
+              {t("landing.hero.viewPricing")}
             </Button>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
-            No credit card required · 3 free articles daily
+            {t("landing.hero.noCreditCard")}
           </p>
         </div>
       </section>
@@ -163,19 +121,12 @@ const LandingPage = () => {
       <section className="border-t border-border bg-card">
         <div className="container mx-auto px-4 max-w-6xl py-20 md:py-28">
           <div className="text-center mb-16">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold">
-              Everything You Need
-            </h2>
-            <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
-              From topic to published article in one click — with built-in exam prep and SEO optimization.
-            </p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold">{t("landing.features.heading")}</h2>
+            <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">{t("landing.features.subtitle")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {features.map((f) => (
-              <div
-                key={f.title}
-                className="group p-6 rounded-xl border border-border bg-background hover:shadow-[var(--shadow-elevated)] transition-shadow"
-              >
+              <div key={f.title} className="group p-6 rounded-xl border border-border bg-background hover:shadow-[var(--shadow-elevated)] transition-shadow">
                 <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
                   <f.icon className="h-5 w-5 text-accent" />
                 </div>
@@ -191,26 +142,20 @@ const LandingPage = () => {
       <section id="pricing" className="border-t border-border">
         <div className="container mx-auto px-4 max-w-6xl py-20 md:py-28">
           <div className="text-center mb-16">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
-              Start free and upgrade when you need unlimited access.
-            </p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold">{t("landing.pricing.heading")}</h2>
+            <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">{t("landing.pricing.subtitle")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {pricingPlans.map((plan) => (
               <div
                 key={plan.name}
                 className={`relative rounded-xl border p-8 flex flex-col ${
-                  plan.highlighted
-                    ? "border-accent bg-card shadow-[var(--shadow-elevated)]"
-                    : "border-border bg-card"
+                  plan.highlighted ? "border-accent bg-card shadow-[var(--shadow-elevated)]" : "border-border bg-card"
                 }`}
               >
                 {plan.highlighted && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
-                    Most Popular
+                    {t("landing.pricing.mostPopular")}
                   </div>
                 )}
                 <h3 className="font-heading text-xl font-bold">{plan.name}</h3>
@@ -227,11 +172,7 @@ const LandingPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  variant={plan.highlighted ? "accent" : "outline"}
-                  className="w-full h-11 mt-8"
-                  onClick={() => navigate("/auth")}
-                >
+                <Button variant={plan.highlighted ? "accent" : "outline"} className="w-full h-11 mt-8" onClick={() => navigate("/auth")}>
                   {plan.cta}
                 </Button>
               </div>
