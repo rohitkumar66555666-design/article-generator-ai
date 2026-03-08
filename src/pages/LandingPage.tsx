@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Zap, Sparkles, BookOpen, FileText, Copy, CheckCircle, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const features = [
   {
@@ -74,7 +75,8 @@ const LandingPage = () => {
             </div>
             <span className="font-heading font-bold text-lg">AI Current Affairs</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" onClick={() => navigate("/auth")}>
               Sign In
             </Button>
