@@ -3,27 +3,52 @@ import DashboardHeader from "@/components/DashboardHeader";
 import TopicInput from "@/components/TopicInput";
 import ArticlePreview, { type Article } from "@/components/ArticlePreview";
 import ExportPanel from "@/components/ExportPanel";
-import { generateMockArticle } from "@/lib/mockArticle";
+import { useUsage } from "@/hooks/useUsage";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Index = () => {
+  const { user } = useAuth();
+  const { remaining, plan, canGenerate, recordGeneration } = useUsage();
   const [article, setArticle] = useState<Article | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleGenerate = async (topic: string, examMode: boolean, examType: string) => {
+    if (!canGenerate) {
+      toast.error("Daily limit reached! Upgrade to Pro for unlimited articles.");
+      return;
+    }
+
     setIsGenerating(true);
     setArticle(null);
 
-    // Simulate AI generation delay
-    await new Promise((r) => setTimeout(r, 2000));
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-article", {
+        body: { topic, examMode, examType },
+      });
 
-    const generated = generateMockArticle(topic, examMode, examType);
-    setArticle(generated);
-    setIsGenerating(false);
+      if (error) throw error;
+
+      if (data?.error) {
+        toast.error(data.error);
+        setIsGenerating(false);
+        return;
+      }
+
+      setArticle(data.article);
+      await recordGeneration(topic, examMode, examType);
+    } catch (err: any) {
+      console.error("Generation error:", err);
+      toast.error(err?.message || "Failed to generate article. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <DashboardHeader />
+      <DashboardHeader remaining={remaining} plan={plan} />
 
       <main className="flex-1 container mx-auto px-4 py-6 max-w-6xl">
         <div className="mb-8">
