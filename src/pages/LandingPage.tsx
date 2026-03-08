@@ -66,6 +66,20 @@ const pricingPlans = [
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleSignIn = async () => {
+    setGoogleLoading(true);
+    try {
+      const { error } = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if (error) toast.error(error.message);
+    } catch {
+      toast.error("Failed to sign in with Google");
+    }
+    setGoogleLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-background">
