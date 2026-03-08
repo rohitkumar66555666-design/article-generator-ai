@@ -10,7 +10,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
   const { user, signOut } = useAuth();
-
+  const navigate = useNavigate();
   return (
     <header className="border-b border-border bg-card">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
