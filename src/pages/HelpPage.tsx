@@ -86,7 +86,7 @@ const HelpPage = () => {
         </div>
       </header>
 
-      <main className="container mx-auto max-w-3xl px-4 py-10 space-y-10">
+      <main className="container mx-auto max-w-3xl px-4 py-6 sm:py-10 space-y-8 sm:space-y-10">
         {/* FAQ Section */}
         <section>
           <div className="flex items-center gap-2 mb-6">
