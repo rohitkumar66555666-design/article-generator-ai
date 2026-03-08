@@ -17,28 +17,37 @@ export type Database = {
       article_generations: {
         Row: {
           article_content: Json | null
+          category: string | null
           created_at: string
           exam_mode: boolean
           exam_type: string | null
+          featured: boolean
           id: string
+          status: string
           topic: string
           user_id: string
         }
         Insert: {
           article_content?: Json | null
+          category?: string | null
           created_at?: string
           exam_mode?: boolean
           exam_type?: string | null
+          featured?: boolean
           id?: string
+          status?: string
           topic: string
           user_id: string
         }
         Update: {
           article_content?: Json | null
+          category?: string | null
           created_at?: string
           exam_mode?: boolean
           exam_type?: string | null
+          featured?: boolean
           id?: string
+          status?: string
           topic?: string
           user_id?: string
         }
@@ -46,31 +55,70 @@ export type Database = {
       }
       profiles: {
         Row: {
+          avatar_url: string | null
           created_at: string
           display_name: string | null
           email: string | null
           id: string
           plan: string
+          status: string
           updated_at: string
           user_id: string
         }
         Insert: {
+          avatar_url?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
           id?: string
           plan?: string
+          status?: string
           updated_at?: string
           user_id: string
         }
         Update: {
+          avatar_url?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
           id?: string
           plan?: string
+          status?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      prompt_templates: {
+        Row: {
+          category: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          name: string
+          prompt_instruction: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          prompt_instruction: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          prompt_instruction?: string
+          updated_at?: string
         }
         Relationships: []
       }
