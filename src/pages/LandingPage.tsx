@@ -58,20 +58,20 @@ const LandingPage = () => {
     <div className="min-h-screen bg-background">
       {/* Nav */}
       <nav className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto flex items-center justify-between h-16 px-4 max-w-6xl">
-          <div className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center">
-              <Zap className="h-4 w-4 text-accent-foreground" />
-            </div>
-            <span className="font-heading font-bold text-lg">AI Current Affairs</span>
-          </div>
+        <div className="container mx-auto flex items-center justify-between h-14 sm:h-16 px-4 max-w-6xl">
           <div className="flex items-center gap-2">
+            <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-accent flex items-center justify-center">
+              <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent-foreground" />
+            </div>
+            <span className="font-heading font-bold text-base sm:text-lg">AI Current Affairs</span>
+          </div>
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <LanguageSelector />
             <ThemeToggle />
-            <Button variant="ghost" onClick={() => navigate("/auth")}>
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={() => navigate("/auth")}>
               {t("landing.nav.signIn")}
             </Button>
-            <Button variant="accent" onClick={() => navigate("/auth")}>
+            <Button variant="accent" size="sm" onClick={() => navigate("/auth")}>
               {t("landing.nav.getStarted")}
             </Button>
           </div>
@@ -86,7 +86,7 @@ const LandingPage = () => {
             <Sparkles className="h-3.5 w-3.5" />
             {t("landing.hero.badge")}
           </div>
-          <h1 className="font-heading text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mx-auto leading-[1.1]">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mx-auto leading-[1.1]">
             {t("landing.hero.title1")}{" "}
             <span className="text-accent">{t("landing.hero.title2")}</span>
           </h1>

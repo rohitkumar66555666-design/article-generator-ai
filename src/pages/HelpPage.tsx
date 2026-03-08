@@ -86,7 +86,7 @@ const HelpPage = () => {
         </div>
       </header>
 
-      <main className="container mx-auto max-w-3xl px-4 py-10 space-y-10">
+      <main className="container mx-auto max-w-3xl px-4 py-6 sm:py-10 space-y-8 sm:space-y-10">
         {/* FAQ Section */}
         <section>
           <div className="flex items-center gap-2 mb-6">
@@ -177,7 +177,7 @@ const HelpPage = () => {
             <MessageSquare className="h-5 w-5 text-accent" />
             <h2 className="font-heading font-bold text-xl">{t("help.quickLinks")}</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <button
               onClick={() => navigate("/dashboard")}
               className="bg-card border border-border rounded-xl p-5 text-left hover:border-accent transition-colors group"
