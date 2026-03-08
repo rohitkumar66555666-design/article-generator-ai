@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      article_generations: {
+        Row: {
+          created_at: string
+          exam_mode: boolean
+          exam_type: string | null
+          id: string
+          topic: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          exam_mode?: boolean
+          exam_type?: string | null
+          id?: string
+          topic: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          exam_mode?: boolean
+          exam_type?: string | null
+          id?: string
+          topic?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          plan: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          plan?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          plan?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
