@@ -13,7 +13,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { t } = useI18n();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
