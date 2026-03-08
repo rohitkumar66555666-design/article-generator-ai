@@ -42,7 +42,11 @@ serve(async (req) => {
 - "questions": array of 5 possible exam questions related to this topic`
       : "";
 
-    const systemPrompt = `You are an expert current affairs article writer for Indian blogs and exam preparation websites. Generate comprehensive, SEO-optimized articles.
+    const languageInstruction = articleLanguage !== "English"
+      ? `\n\nIMPORTANT: Write the ENTIRE article content in ${articleLanguage}. All fields (seoTitle, metaDescription, tags, introduction, background, keyPoints, analysis, conclusion, and examSection if present) MUST be written in ${articleLanguage}. Do NOT write in English.`
+      : "";
+
+    const systemPrompt = `You are an expert current affairs article writer for blogs and exam preparation websites. Generate comprehensive, SEO-optimized articles.
 
 Return a valid JSON object with this exact structure:
 {
@@ -62,7 +66,7 @@ Return a valid JSON object with this exact structure:
   }` : ""}
 }
 
-IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanation.`;
+IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanation.${languageInstruction}`;
 
     const response = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
+import { LANGUAGES } from "@/contexts/I18nContext";
 import TopicInput from "@/components/TopicInput";
 import ArticlePreview, { type Article } from "@/components/ArticlePreview";
 import ExportPanel from "@/components/ExportPanel";
