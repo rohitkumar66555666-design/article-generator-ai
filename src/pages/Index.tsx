@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
+import { LANGUAGES } from "@/contexts/I18nContext";
 import TopicInput from "@/components/TopicInput";
 import ArticlePreview, { type Article } from "@/components/ArticlePreview";
 import ExportPanel from "@/components/ExportPanel";
@@ -39,8 +40,10 @@ const Index = () => {
     setArticle(null);
 
     try {
+      const langCode = localStorage.getItem("app-language") || "en";
+      const langLabel = langCode === "en" ? "" : LANGUAGES.find(l => l.code === langCode)?.label || "";
       const { data, error } = await supabase.functions.invoke("generate-article", {
-        body: { topic, examMode, examType },
+        body: { topic, examMode, examType, language: langLabel || "English" },
       });
 
       if (error) throw error;
