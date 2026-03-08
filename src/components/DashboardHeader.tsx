@@ -35,8 +35,8 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
             </span>
             <span>
               {plan === "pro"
-                ? "Unlimited articles"
-                : `${remaining}/3 articles left today`}
+                ? t("dashboard.unlimitedArticles")
+                : `${remaining}/3 ${t("dashboard.articlesLeft")}`}
             </span>
           </div>
           <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-40">
