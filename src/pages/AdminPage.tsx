@@ -40,6 +40,7 @@ function AdminDashboard() {
     analytics,
   } = useAdminData();
   const navigate = useNavigate();
+  const { t } = useI18n();
 
   if (loading) {
     return (
