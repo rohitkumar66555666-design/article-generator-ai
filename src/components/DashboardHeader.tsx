@@ -3,7 +3,6 @@ import { Zap, LogOut, History, UserCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "@/components/ThemeToggle";
-import { useNavigate } from "react-router-dom";
 
 interface DashboardHeaderProps {
   remaining: number;
