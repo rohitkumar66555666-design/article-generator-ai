@@ -42,6 +42,7 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
           <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-40">
             {displayName || user?.email}
           </span>
+          <LanguageSelector />
           <ThemeToggle />
           {isAdmin && (
             <Button variant="ghost" size="icon" onClick={() => navigate("/admin")} title="Admin Panel">
