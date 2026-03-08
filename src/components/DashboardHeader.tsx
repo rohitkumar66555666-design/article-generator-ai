@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Zap, User, LogOut } from "lucide-react";
+import { Zap, LogOut, History } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardHeaderProps {
   remaining: number;
