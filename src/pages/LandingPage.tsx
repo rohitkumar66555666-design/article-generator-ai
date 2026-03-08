@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Zap, Sparkles, BookOpen, FileText, Copy, CheckCircle, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const features = [
   {
