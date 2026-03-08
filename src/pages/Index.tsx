@@ -61,7 +61,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <DashboardHeader remaining={remaining} plan={plan} />
+      <DashboardHeader remaining={remaining} plan={plan} displayName={displayName} />
 
       <main className="flex-1 container mx-auto px-4 py-6 max-w-6xl">
         <div className="mb-8">
