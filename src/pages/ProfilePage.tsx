@@ -6,14 +6,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Save, User } from "lucide-react";
+import { ArrowLeft, Save, User, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import LanguageSelector from "@/components/LanguageSelector";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { t } = useI18n();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
@@ -106,6 +106,13 @@ const ProfilePage = () => {
               {loading ? t("profile.saving") : t("profile.save")}
             </Button>
           </form>
+
+          <div className="pt-4 border-t border-border">
+            <Button variant="destructive" className="w-full h-11" onClick={signOut}>
+              <LogOut className="h-4 w-4 mr-2" />
+              {t("common.signOut")}
+            </Button>
+          </div>
         </div>
       </main>
     </div>

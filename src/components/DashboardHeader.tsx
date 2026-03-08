@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Zap, LogOut, History, UserCircle, Shield } from "lucide-react";
+import { Zap, History, UserCircle, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -54,9 +54,6 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
           </Button>
           <Button variant="ghost" size="icon" onClick={() => navigate("/history")} title="Article History">
             <History className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="icon" onClick={signOut} title={t("common.signOut")}>
-            <LogOut className="h-4 w-4" />
           </Button>
         </div>
       </div>
