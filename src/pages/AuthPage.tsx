@@ -58,7 +58,11 @@ const AuthPage = () => {
           </div>
           <h1 className="font-heading text-2xl font-bold">AI Current Affairs</h1>
           <p className="text-sm text-muted-foreground">
-            {isLogin ? "Sign in to your account" : "Create a new account"}
+            {forgotPassword
+              ? "Enter your email to reset your password"
+              : isLogin
+              ? "Sign in to your account"
+              : "Create a new account"}
           </p>
         </div>
 
