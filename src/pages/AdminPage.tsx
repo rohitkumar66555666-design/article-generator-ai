@@ -1,10 +1,12 @@
 import { useAdmin, useAdminData } from "@/hooks/useAdmin";
 import { useAuth } from "@/contexts/AuthContext";
+import { useI18n } from "@/contexts/I18nContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, LayoutDashboard, Users, FileText, Wand2, Shield } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageSelector from "@/components/LanguageSelector";
 import AdminOverview from "@/components/admin/AdminOverview";
 import AdminUsers from "@/components/admin/AdminUsers";
 import AdminArticles from "@/components/admin/AdminArticles";
@@ -38,6 +40,7 @@ function AdminDashboard() {
     analytics,
   } = useAdminData();
   const navigate = useNavigate();
+  const { t } = useI18n();
 
   if (loading) {
     return (
@@ -55,12 +58,13 @@ function AdminDashboard() {
             <div className="h-8 w-8 rounded-lg bg-destructive/10 flex items-center justify-center">
               <Shield className="h-4 w-4 text-destructive" />
             </div>
-            <h1 className="font-heading font-bold text-lg">Admin Panel</h1>
+            <h1 className="font-heading font-bold text-lg">{t("admin.title")}</h1>
           </div>
           <div className="flex items-center gap-2">
+            <LanguageSelector />
             <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-1.5 text-xs">
-              <ArrowLeft className="h-3.5 w-3.5" /> Dashboard
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("common.back")}
             </Button>
           </div>
         </div>

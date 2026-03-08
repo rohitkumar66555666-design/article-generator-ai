@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { useI18n } from "@/contexts/I18nContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Zap, ArrowLeft, BookOpen, Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ArticlePreview, { type Article } from "@/components/ArticlePreview";
 import ExportPanel from "@/components/ExportPanel";
+import LanguageSelector from "@/components/LanguageSelector";
+import ThemeToggle from "@/components/ThemeToggle";
 import { format } from "date-fns";
 
 interface HistoryEntry {
@@ -19,11 +22,12 @@ interface HistoryEntry {
 }
 
 const HistoryPage = () => {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -45,11 +49,8 @@ const HistoryPage = () => {
     fetchHistory();
   }, [user]);
 
-  const expanded = entries.find((e) => e.id === expandedId);
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <div className="flex items-center gap-2.5">
@@ -58,9 +59,11 @@ const HistoryPage = () => {
             </div>
             <h1 className="font-heading font-bold text-lg">AI Current Affairs</h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <LanguageSelector />
+            <ThemeToggle />
             <Button variant="ghost" size="sm" className="gap-2" onClick={() => navigate("/dashboard")}>
-              <ArrowLeft className="h-4 w-4" /> Dashboard
+              <ArrowLeft className="h-4 w-4" /> {t("common.back")}
             </Button>
           </div>
         </div>
@@ -68,10 +71,8 @@ const HistoryPage = () => {
 
       <main className="flex-1 container mx-auto px-4 py-6 max-w-6xl">
         <div className="mb-8">
-          <h2 className="font-heading text-2xl font-bold mb-1">Article History</h2>
-          <p className="text-sm text-muted-foreground">
-            View and re-export your previously generated articles
-          </p>
+          <h2 className="font-heading text-2xl font-bold mb-1">{t("history.title")}</h2>
+          <p className="text-sm text-muted-foreground">{t("history.subtitle")}</p>
         </div>
 
         {loading ? (
@@ -83,12 +84,10 @@ const HistoryPage = () => {
             <div className="h-16 w-16 rounded-2xl bg-secondary flex items-center justify-center mx-auto">
               <Clock className="h-7 w-7 text-muted-foreground" />
             </div>
-            <p className="font-heading font-semibold text-lg">No articles yet</p>
-            <p className="text-sm text-muted-foreground">
-              Generate your first article to see it here
-            </p>
+            <p className="font-heading font-semibold text-lg">{t("history.empty")}</p>
+            <p className="text-sm text-muted-foreground">{t("history.emptyHint")}</p>
             <Button variant="accent" className="mt-4" onClick={() => navigate("/dashboard")}>
-              Generate Article
+              {t("history.generateBtn")}
             </Button>
           </div>
         ) : (
@@ -141,7 +140,7 @@ const HistoryPage = () => {
 
                 {expandedId === entry.id && !entry.article_content && (
                   <div className="border-t border-border p-6 text-center text-sm text-muted-foreground">
-                    Article content not available (generated before history was enabled)
+                    {t("history.noContent")}
                   </div>
                 )}
               </div>

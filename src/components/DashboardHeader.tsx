@@ -3,7 +3,9 @@ import { Zap, LogOut, History, UserCircle, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "@/hooks/useAdmin";
+import { useI18n } from "@/contexts/I18nContext";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageSelector from "@/components/LanguageSelector";
 
 interface DashboardHeaderProps {
   remaining: number;
@@ -15,6 +17,7 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const { isAdmin } = useAdmin();
+  const { t } = useI18n();
   return (
     <header className="border-b border-border bg-card">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
@@ -32,13 +35,14 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
             </span>
             <span>
               {plan === "pro"
-                ? "Unlimited articles"
-                : `${remaining}/3 articles left today`}
+                ? t("dashboard.unlimitedArticles")
+                : `${remaining}/3 ${t("dashboard.articlesLeft")}`}
             </span>
           </div>
           <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-40">
             {displayName || user?.email}
           </span>
+          <LanguageSelector />
           <ThemeToggle />
           {isAdmin && (
             <Button variant="ghost" size="icon" onClick={() => navigate("/admin")} title="Admin Panel">
@@ -51,7 +55,7 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
           <Button variant="ghost" size="icon" onClick={() => navigate("/history")} title="Article History">
             <History className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon" onClick={signOut} title="Sign out">
+          <Button variant="ghost" size="icon" onClick={signOut} title={t("common.signOut")}>
             <LogOut className="h-4 w-4" />
           </Button>
         </div>
