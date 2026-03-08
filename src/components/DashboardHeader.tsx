@@ -40,6 +40,11 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
             {displayName || user?.email}
           </span>
           <ThemeToggle />
+          {isAdmin && (
+            <Button variant="ghost" size="icon" onClick={() => navigate("/admin")} title="Admin Panel">
+              <Shield className="h-4 w-4" />
+            </Button>
+          )}
           <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} title="Profile">
             <UserCircle className="h-4 w-4" />
           </Button>
