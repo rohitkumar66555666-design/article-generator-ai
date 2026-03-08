@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Zap, LogOut, History, UserCircle } from "lucide-react";
+import { Zap, LogOut, History, UserCircle, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAdmin } from "@/hooks/useAdmin";
 import ThemeToggle from "@/components/ThemeToggle";
 
 interface DashboardHeaderProps {
