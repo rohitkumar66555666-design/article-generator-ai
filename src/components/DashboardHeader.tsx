@@ -52,6 +52,9 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
           <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} title="Profile">
             <UserCircle className="h-4 w-4" />
           </Button>
+          <Button variant="ghost" size="icon" onClick={() => navigate("/help")} title={t("help.title")}>
+            <HelpCircle className="h-4 w-4" />
+          </Button>
           <Button variant="ghost" size="icon" onClick={() => navigate("/history")} title="Article History">
             <History className="h-4 w-4" />
           </Button>
