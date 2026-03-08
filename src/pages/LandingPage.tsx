@@ -11,6 +11,7 @@ import { useI18n } from "@/contexts/I18nContext";
 const LandingPage = () => {
   const navigate = useNavigate();
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [appleLoading, setAppleLoading] = useState(false);
   const { t } = useI18n();
 
   const handleGoogleSignIn = async () => {

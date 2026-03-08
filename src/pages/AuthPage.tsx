@@ -20,6 +20,7 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const [forgotPassword, setForgotPassword] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [appleLoading, setAppleLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const { t } = useI18n();
 
