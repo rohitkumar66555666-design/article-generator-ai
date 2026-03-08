@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Zap, LogOut, History, UserCircle } from "lucide-react";
+import { Zap, LogOut, History, UserCircle, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAdmin } from "@/hooks/useAdmin";
 import ThemeToggle from "@/components/ThemeToggle";
 
 interface DashboardHeaderProps {
@@ -13,6 +14,7 @@ interface DashboardHeaderProps {
 const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const { isAdmin } = useAdmin();
   return (
     <header className="border-b border-border bg-card">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
@@ -38,6 +40,11 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
             {displayName || user?.email}
           </span>
           <ThemeToggle />
+          {isAdmin && (
+            <Button variant="ghost" size="icon" onClick={() => navigate("/admin")} title="Admin Panel">
+              <Shield className="h-4 w-4" />
+            </Button>
+          )}
           <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} title="Profile">
             <UserCircle className="h-4 w-4" />
           </Button>
