@@ -75,7 +75,8 @@ const LandingPage = () => {
             </div>
             <span className="font-heading font-bold text-lg">AI Current Affairs</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" onClick={() => navigate("/auth")}>
               Sign In
             </Button>
