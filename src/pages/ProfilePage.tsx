@@ -106,6 +106,13 @@ const ProfilePage = () => {
               {loading ? t("profile.saving") : t("profile.save")}
             </Button>
           </form>
+
+          <div className="pt-4 border-t border-border">
+            <Button variant="destructive" className="w-full h-11" onClick={signOut}>
+              <LogOut className="h-4 w-4 mr-2" />
+              {t("common.signOut")}
+            </Button>
+          </div>
         </div>
       </main>
     </div>
