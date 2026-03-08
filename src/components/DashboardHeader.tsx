@@ -3,7 +3,9 @@ import { Zap, LogOut, History, UserCircle, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "@/hooks/useAdmin";
+import { useI18n } from "@/contexts/I18nContext";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageSelector from "@/components/LanguageSelector";
 
 interface DashboardHeaderProps {
   remaining: number;
