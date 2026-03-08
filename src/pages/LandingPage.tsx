@@ -86,7 +86,7 @@ const LandingPage = () => {
             <Sparkles className="h-3.5 w-3.5" />
             {t("landing.hero.badge")}
           </div>
-          <h1 className="font-heading text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mx-auto leading-[1.1]">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mx-auto leading-[1.1]">
             {t("landing.hero.title1")}{" "}
             <span className="text-accent">{t("landing.hero.title2")}</span>
           </h1>
