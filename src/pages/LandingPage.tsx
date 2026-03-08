@@ -144,6 +144,14 @@ const LandingPage = () => {
               </svg>
               {googleLoading ? "Please wait..." : "Sign in with Google"}
             </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12 px-8 text-base"
+              onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              View Pricing
+            </Button>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
             No credit card required · 3 free articles daily
