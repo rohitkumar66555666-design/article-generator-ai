@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Zap, History, UserCircle, Shield } from "lucide-react";
+import { Zap, History, UserCircle, Shield, HelpCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useAdmin } from "@/hooks/useAdmin";
