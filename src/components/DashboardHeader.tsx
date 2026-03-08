@@ -9,7 +9,7 @@ interface DashboardHeaderProps {
   displayName?: string | null;
 }
 
-const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
+const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   return (
