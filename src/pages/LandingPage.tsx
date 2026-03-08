@@ -27,6 +27,19 @@ const LandingPage = () => {
     setGoogleLoading(false);
   };
 
+  const handleAppleSignIn = async () => {
+    setAppleLoading(true);
+    try {
+      const { error } = await lovable.auth.signInWithOAuth("apple", {
+        redirect_uri: window.location.origin,
+      });
+      if (error) toast.error(error.message);
+    } catch {
+      toast.error("Failed to sign in with Apple");
+    }
+    setAppleLoading(false);
+  };
+
   const features = [
     { icon: Sparkles, title: t("landing.features.ai.title"), description: t("landing.features.ai.desc") },
     { icon: BookOpen, title: t("landing.features.exam.title"), description: t("landing.features.exam.desc") },

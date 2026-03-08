@@ -37,6 +37,19 @@ const AuthPage = () => {
     setGoogleLoading(false);
   };
 
+  const handleAppleSignIn = async () => {
+    setAppleLoading(true);
+    try {
+      const { error } = await lovable.auth.signInWithOAuth("apple", {
+        redirect_uri: window.location.origin,
+      });
+      if (error) toast.error(error.message);
+    } catch {
+      toast.error("Failed to sign in with Apple");
+    }
+    setAppleLoading(false);
+  };
+
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
