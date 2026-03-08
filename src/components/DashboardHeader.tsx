@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 interface DashboardHeaderProps {
   remaining: number;
   plan: string;
+  displayName?: string | null;
 }
 
 const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
