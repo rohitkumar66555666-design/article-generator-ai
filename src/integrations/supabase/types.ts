@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       article_generations: {
         Row: {
+          article_content: Json | null
           created_at: string
           exam_mode: boolean
           exam_type: string | null
@@ -24,6 +25,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          article_content?: Json | null
           created_at?: string
           exam_mode?: boolean
           exam_type?: string | null
@@ -32,6 +34,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          article_content?: Json | null
           created_at?: string
           exam_mode?: boolean
           exam_type?: string | null

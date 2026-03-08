@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Zap, User, LogOut } from "lucide-react";
+import { Zap, LogOut, History } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface DashboardHeaderProps {
   remaining: number;
@@ -9,7 +10,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
   const { user, signOut } = useAuth();
-
+  const navigate = useNavigate();
   return (
     <header className="border-b border-border bg-card">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
@@ -34,6 +35,9 @@ const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
           <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-32">
             {user?.email}
           </span>
+          <Button variant="ghost" size="icon" onClick={() => navigate("/history")} title="Article History">
+            <History className="h-4 w-4" />
+          </Button>
           <Button variant="ghost" size="icon" onClick={signOut} title="Sign out">
             <LogOut className="h-4 w-4" />
           </Button>

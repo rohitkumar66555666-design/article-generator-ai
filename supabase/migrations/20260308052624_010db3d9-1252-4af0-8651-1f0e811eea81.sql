@@ -1,0 +1,1 @@
+ALTER TABLE public.article_generations ADD COLUMN article_content jsonb;

@@ -41,14 +41,15 @@ export function useUsage() {
   const remaining = plan === "pro" ? Infinity : Math.max(0, FREE_DAILY_LIMIT - todayCount);
   const canGenerate = plan === "pro" || todayCount < FREE_DAILY_LIMIT;
 
-  const recordGeneration = async (topic: string, examMode: boolean, examType: string | null) => {
+  const recordGeneration = async (topic: string, examMode: boolean, examType: string | null, articleContent?: any) => {
     if (!user) return;
     await supabase.from("article_generations").insert({
       user_id: user.id,
       topic,
       exam_mode: examMode,
       exam_type: examType,
-    });
+      article_content: articleContent ?? null,
+    } as any);
     setTodayCount((prev) => prev + 1);
   };
 

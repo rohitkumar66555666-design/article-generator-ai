@@ -37,7 +37,7 @@ const Index = () => {
       }
 
       setArticle(data.article);
-      await recordGeneration(topic, examMode, examType);
+      await recordGeneration(topic, examMode, examType, data.article);
     } catch (err: any) {
       console.error("Generation error:", err);
       toast.error(err?.message || "Failed to generate article. Please try again.");
