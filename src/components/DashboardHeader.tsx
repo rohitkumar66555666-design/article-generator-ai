@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 interface DashboardHeaderProps {
   remaining: number;
   plan: string;
+  displayName?: string | null;
 }
 
-const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
+const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   return (
@@ -32,8 +33,8 @@ const DashboardHeader = ({ remaining, plan }: DashboardHeaderProps) => {
                 : `${remaining}/3 articles left today`}
             </span>
           </div>
-          <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-32">
-            {user?.email}
+          <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-40">
+            {displayName || user?.email}
           </span>
           <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} title="Profile">
             <UserCircle className="h-4 w-4" />

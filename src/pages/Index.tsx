@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardHeader from "@/components/DashboardHeader";
 import TopicInput from "@/components/TopicInput";
 import ArticlePreview, { type Article } from "@/components/ArticlePreview";
@@ -13,6 +13,19 @@ const Index = () => {
   const { remaining, plan, canGenerate, recordGeneration } = useUsage();
   const [article, setArticle] = useState<Article | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [displayName, setDisplayName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("user_id", user.id)
+      .single()
+      .then(({ data }) => {
+        if (data) setDisplayName((data as any).display_name ?? null);
+      });
+  }, [user]);
 
   const handleGenerate = async (topic: string, examMode: boolean, examType: string) => {
     if (!canGenerate) {
@@ -48,7 +61,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <DashboardHeader remaining={remaining} plan={plan} />
+      <DashboardHeader remaining={remaining} plan={plan} displayName={displayName} />
 
       <main className="flex-1 container mx-auto px-4 py-6 max-w-6xl">
         <div className="mb-8">
