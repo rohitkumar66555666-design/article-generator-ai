@@ -12,7 +12,8 @@ serve(async (req) => {
   }
 
   try {
-    const { topic, examMode, examType } = await req.json();
+    const { topic, examMode, examType, language } = await req.json();
+    const articleLanguage = language || "English";
 
     if (!topic || typeof topic !== "string" || topic.trim().length === 0) {
       return new Response(JSON.stringify({ error: "Topic is required" }), {
