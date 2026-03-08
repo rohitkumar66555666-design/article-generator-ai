@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Zap, LogOut, History, UserCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface DashboardHeaderProps {
   remaining: number;
@@ -36,6 +37,7 @@ const DashboardHeader = ({ remaining, plan, displayName }: DashboardHeaderProps)
           <span className="text-xs text-muted-foreground hidden md:inline truncate max-w-40">
             {displayName || user?.email}
           </span>
+          <ThemeToggle />
           <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} title="Profile">
             <UserCircle className="h-4 w-4" />
           </Button>
