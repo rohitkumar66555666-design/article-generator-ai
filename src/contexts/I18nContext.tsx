@@ -583,6 +583,17 @@ const translations: TranslationMap = {
     "admin.title": "管理パネル",
     "common.signOut": "ログアウト",
     "common.back": "ダッシュボード",
+    "help.title": "ヘルプ＆サポート",
+    "help.faqTitle": "よくある質問",
+    "help.contactTitle": "お問い合わせ",
+    "help.name": "名前",
+    "help.message": "メッセージ",
+    "help.send": "送信",
+    "help.sent": "メッセージが送信されました！",
+    "help.quickLinks": "クイックリンク",
+    "help.linkGenerate": "記事を生成",
+    "help.linkHistory": "履歴",
+    "help.linkProfile": "プロフィール",
   },
 };
 
