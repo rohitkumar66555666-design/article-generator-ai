@@ -58,12 +58,13 @@ function AdminDashboard() {
             <div className="h-8 w-8 rounded-lg bg-destructive/10 flex items-center justify-center">
               <Shield className="h-4 w-4 text-destructive" />
             </div>
-            <h1 className="font-heading font-bold text-lg">Admin Panel</h1>
+            <h1 className="font-heading font-bold text-lg">{t("admin.title")}</h1>
           </div>
           <div className="flex items-center gap-2">
+            <LanguageSelector />
             <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-1.5 text-xs">
-              <ArrowLeft className="h-3.5 w-3.5" /> Dashboard
+              <ArrowLeft className="h-3.5 w-3.5" /> {t("common.back")}
             </Button>
           </div>
         </div>
