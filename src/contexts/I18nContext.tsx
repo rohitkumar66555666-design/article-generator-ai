@@ -602,6 +602,12 @@ const translations: TranslationMap = {
     "help.linkGenerate": "生成文章",
     "help.linkHistory": "历史记录",
     "help.linkProfile": "个人资料",
+    "topic.label": "أدخل الموضوع",
+    "topic.placeholder": "مثال: ميزانية 2026، السياسة النقدية...",
+    "topic.generate": "إنشاء",
+    "topic.generating": "جاري الإنشاء...",
+    "topic.examTitle": "وضع الامتحان",
+    "topic.examDesc": "إضافة حقائق وأسئلة تدريبية للامتحانات",
   },
   ja: {
     "landing.nav.signIn": "ログイン",
