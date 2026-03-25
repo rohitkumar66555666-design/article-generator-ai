@@ -40,8 +40,8 @@ const Index = () => {
     setArticle(null);
 
     try {
-      const langCode = localStorage.getItem("app-language") || "en";
-      const langLabel = langCode === "en" ? "" : LANGUAGES.find(l => l.code === langCode)?.label || "";
+      const langCode = localStorage.getItem("app_lang") || "en";
+      const langLabel = LANGUAGES.find(l => l.code === langCode)?.label || "English";
       const { data, error } = await supabase.functions.invoke("generate-article", {
         body: { topic, examMode, examType, language: langLabel || "English" },
       });

@@ -75,8 +75,8 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
         <div className="flex items-center gap-3">
           <BookOpen className="h-5 w-5 text-accent" />
           <div>
-            <p className="font-medium font-heading text-sm">Exam Focus Mode</p>
-            <p className="text-xs text-muted-foreground">Add exam-relevant facts, data & practice questions</p>
+            <p className="font-medium font-heading text-sm">{t("topic.examTitle")}</p>
+            <p className="text-xs text-muted-foreground">{t("topic.examDesc")}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
