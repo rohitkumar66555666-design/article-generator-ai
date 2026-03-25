@@ -54,7 +54,7 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
             className="h-12 px-6 gap-2"
           >
             <Sparkles className="h-4 w-4" />
-            {isGenerating ? "Generating..." : "Generate"}
+            {isGenerating ? t("topic.generating") : t("topic.generate")}
           </Button>
         </div>
       </div>
