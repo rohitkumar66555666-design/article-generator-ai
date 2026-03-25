@@ -567,6 +567,12 @@ const translations: TranslationMap = {
     "help.linkGenerate": "إنشاء مقال",
     "help.linkHistory": "السجل",
     "help.linkProfile": "الملف الشخصي",
+    "topic.label": "Insira o tema",
+    "topic.placeholder": "ex. Orçamento 2026, Política monetária...",
+    "topic.generate": "Gerar",
+    "topic.generating": "Gerando...",
+    "topic.examTitle": "Modo Exame",
+    "topic.examDesc": "Adicionar fatos e questões de prática para exames",
   },
   zh: {
     "landing.nav.signIn": "登录",
