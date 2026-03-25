@@ -502,6 +502,12 @@ const translations: TranslationMap = {
     "help.linkHistoryDesc": "Vergangene Artikel anzeigen",
     "help.linkProfile": "Profil",
     "help.linkProfileDesc": "Konto verwalten",
+    "topic.label": "Thema eingeben",
+    "topic.placeholder": "z.B. Haushalt 2026, Wirtschaftspolitik...",
+    "topic.generate": "Generieren",
+    "topic.generating": "Wird generiert...",
+    "topic.examTitle": "Prüfungsmodus",
+    "topic.examDesc": "Prüfungsrelevante Fakten und Übungsfragen hinzufügen",
   },
   pt: {
     "landing.nav.signIn": "Entrar",
