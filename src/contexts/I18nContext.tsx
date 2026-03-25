@@ -101,6 +101,13 @@ const translations: TranslationMap = {
     "admin.users": "Users",
     "admin.articles": "Articles",
     "admin.templates": "Templates",
+    // Topic Input
+    "topic.label": "Enter Topic",
+    "topic.placeholder": "e.g. Budget 2026, RBI Policy, India-China relations...",
+    "topic.generate": "Generate",
+    "topic.generating": "Generating...",
+    "topic.examTitle": "Exam Focus Mode",
+    "topic.examDesc": "Add exam-relevant facts, data & practice questions",
     // Common
     "common.signOut": "Sign out",
     "common.back": "Dashboard",
