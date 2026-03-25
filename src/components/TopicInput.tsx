@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sparkles, BookOpen } from "lucide-react";
+import { useI18n } from "@/contexts/I18nContext";
 
 interface TopicInputProps {
   onGenerate: (topic: string, examMode: boolean, examType: string) => void;
@@ -12,6 +13,7 @@ interface TopicInputProps {
 }
 
 const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
+  const { t } = useI18n();
   const [topic, setTopic] = useState("");
   const [examMode, setExamMode] = useState(false);
   const [examType, setExamType] = useState("UPSC");
