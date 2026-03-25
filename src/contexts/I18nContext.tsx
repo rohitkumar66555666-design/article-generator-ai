@@ -446,6 +446,12 @@ const translations: TranslationMap = {
     "help.linkHistoryDesc": "Voir vos articles",
     "help.linkProfile": "Profil",
     "help.linkProfileDesc": "Gérer votre compte",
+    "topic.label": "Thème saisir",
+    "topic.placeholder": "ex. Budget 2026, Politique monétaire...",
+    "topic.generate": "Générer",
+    "topic.generating": "Génération...",
+    "topic.examTitle": "Mode Examen",
+    "topic.examDesc": "Ajouter des faits et questions de pratique",
   },
   de: {
     "landing.nav.signIn": "Anmelden",
