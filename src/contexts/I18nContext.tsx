@@ -538,6 +538,12 @@ const translations: TranslationMap = {
     "help.linkGenerate": "Gerar artigo",
     "help.linkHistory": "Histórico",
     "help.linkProfile": "Perfil",
+    "topic.label": "Insira o tema",
+    "topic.placeholder": "ex. Orçamento 2026, Política monetária...",
+    "topic.generate": "Gerar",
+    "topic.generating": "Gerando...",
+    "topic.examTitle": "Modo Exame",
+    "topic.examDesc": "Adicionar fatos e questões de prática para exames",
   },
   ar: {
     "landing.nav.signIn": "تسجيل الدخول",
