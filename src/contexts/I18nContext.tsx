@@ -637,6 +637,12 @@ const translations: TranslationMap = {
     "help.linkGenerate": "記事を生成",
     "help.linkHistory": "履歴",
     "help.linkProfile": "プロフィール",
+    "topic.label": "输入主题",
+    "topic.placeholder": "例如：2026年预算、货币政策...",
+    "topic.generate": "生成",
+    "topic.generating": "正在生成...",
+    "topic.examTitle": "考试模式",
+    "topic.examDesc": "添加考试相关事实和练习题",
   },
 };
 
