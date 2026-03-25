@@ -36,7 +36,7 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Enter Topic
+          {t("topic.label")}
         </Label>
         <div className="flex gap-3">
           <Input
