@@ -258,6 +258,12 @@ const translations: TranslationMap = {
     "help.linkHistoryDesc": "पुराने लेख देखें",
     "help.linkProfile": "प्रोफ़ाइल सेटिंग्स",
     "help.linkProfileDesc": "अपना खाता प्रबंधित करें",
+    "topic.label": "विषय दर्ज करें",
+    "topic.placeholder": "उदा. बजट 2026, RBI नीति, भारत-चीन संबंध...",
+    "topic.generate": "बनाएं",
+    "topic.generating": "बनाया जा रहा है...",
+    "topic.examTitle": "परीक्षा फोकस मोड",
+    "topic.examDesc": "परीक्षा से संबंधित तथ्य, डेटा और अभ्यास प्रश्न जोड़ें",
   },
   es: {
     "landing.nav.signIn": "Iniciar sesión",
