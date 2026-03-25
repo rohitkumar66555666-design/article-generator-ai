@@ -377,6 +377,12 @@ const translations: TranslationMap = {
     "help.linkHistoryDesc": "Ver artículos pasados",
     "help.linkProfile": "Perfil",
     "help.linkProfileDesc": "Gestiona tu cuenta",
+    "topic.label": "Ingresa el tema",
+    "topic.placeholder": "ej. Presupuesto 2026, Política económica...",
+    "topic.generate": "Generar",
+    "topic.generating": "Generando...",
+    "topic.examTitle": "Modo Examen",
+    "topic.examDesc": "Agregar datos y preguntas de práctica para exámenes",
   },
   fr: {
     "landing.nav.signIn": "Connexion",
