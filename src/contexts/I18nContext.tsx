@@ -643,6 +643,12 @@ const translations: TranslationMap = {
     "topic.generating": "正在生成...",
     "topic.examTitle": "考试模式",
     "topic.examDesc": "添加考试相关事实和练习题",
+    "topic.label": "トピックを入力",
+    "topic.placeholder": "例：2026年予算、金融政策...",
+    "topic.generate": "生成",
+    "topic.generating": "生成中...",
+    "topic.examTitle": "試験モード",
+    "topic.examDesc": "試験関連の事実と練習問題を追加",
   },
 };
 
