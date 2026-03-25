@@ -40,7 +40,7 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
         </Label>
         <div className="flex gap-3">
           <Input
-            placeholder="e.g. Budget 2026, RBI Policy, India-China relations..."
+            placeholder={t("topic.placeholder")}
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
