@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sparkles, BookOpen } from "lucide-react";
+import { useI18n } from "@/contexts/I18nContext";
 
 interface TopicInputProps {
   onGenerate: (topic: string, examMode: boolean, examType: string) => void;
@@ -12,6 +13,7 @@ interface TopicInputProps {
 }
 
 const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
+  const { t } = useI18n();
   const [topic, setTopic] = useState("");
   const [examMode, setExamMode] = useState(false);
   const [examType, setExamType] = useState("UPSC");
@@ -34,11 +36,11 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
     <div className="space-y-6">
       <div className="space-y-2">
         <Label className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-          Enter Topic
+          {t("topic.label")}
         </Label>
         <div className="flex gap-3">
           <Input
-            placeholder="e.g. Budget 2026, RBI Policy, India-China relations..."
+            placeholder={t("topic.placeholder")}
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
@@ -52,7 +54,7 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
             className="h-12 px-6 gap-2"
           >
             <Sparkles className="h-4 w-4" />
-            {isGenerating ? "Generating..." : "Generate"}
+            {isGenerating ? t("topic.generating") : t("topic.generate")}
           </Button>
         </div>
       </div>
@@ -73,8 +75,8 @@ const TopicInput = ({ onGenerate, isGenerating }: TopicInputProps) => {
         <div className="flex items-center gap-3">
           <BookOpen className="h-5 w-5 text-accent" />
           <div>
-            <p className="font-medium font-heading text-sm">Exam Focus Mode</p>
-            <p className="text-xs text-muted-foreground">Add exam-relevant facts, data & practice questions</p>
+            <p className="font-medium font-heading text-sm">{t("topic.examTitle")}</p>
+            <p className="text-xs text-muted-foreground">{t("topic.examDesc")}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
