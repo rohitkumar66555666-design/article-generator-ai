@@ -39,6 +39,7 @@ export interface AdminUser {
   created_at: string;
   avatar_url: string | null;
   article_count?: number;
+  roles?: string[];
 }
 
 export interface AdminArticle {
@@ -65,48 +66,128 @@ export interface PromptTemplate {
   updated_at: string;
 }
 
+export interface AdminAnalytics {
+  totalUsers: number;
+  proUsers: number;
+  totalArticles: number;
+  todayArticles: number;
+  activeUsers: number;
+  suspendedUsers: number;
+  bannedUsers: number;
+  examArticles: number;
+  featuredArticles: number;
+  dailyTrend: { date: string; count: number }[];
+  userGrowth: { date: string; count: number }[];
+  topUsers: AdminUser[];
+  categoryBreakdown: Record<string, number>;
+  examTypeBreakdown: Record<string, number>;
+  recentArticles: AdminArticle[];
+  recentUsers: AdminUser[];
+}
+
 export function useAdminData() {
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [articles, setArticles] = useState<AdminArticle[]>([]);
   const [templates, setTemplates] = useState<PromptTemplate[]>([]);
+  const [analytics, setAnalytics] = useState<AdminAnalytics>({
+    totalUsers: 0,
+    proUsers: 0,
+    totalArticles: 0,
+    todayArticles: 0,
+    activeUsers: 0,
+    suspendedUsers: 0,
+    bannedUsers: 0,
+    examArticles: 0,
+    featuredArticles: 0,
+    dailyTrend: [],
+    userGrowth: [],
+    topUsers: [],
+    categoryBreakdown: {},
+    examTypeBreakdown: {},
+    recentArticles: [],
+    recentUsers: [],
+  });
   const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const [profilesRes, gensRes, templatesRes] = await Promise.all([
-      supabase.from("profiles").select("*").order("created_at", { ascending: false }),
-      supabase.from("article_generations").select("*").order("created_at", { ascending: false }),
-      supabase.from("prompt_templates").select("*").order("created_at", { ascending: false }),
-    ]);
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-stats");
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
 
-    const profilesData = profilesRes.data ?? [];
-    const articlesData = gensRes.data ?? [];
+      setUsers(data.users ?? []);
+      setArticles(data.articles ?? []);
+      setTemplates(data.templates ?? []);
+      setAnalytics(data.analytics);
+    } catch (err: any) {
+      console.error("Admin data fetch error:", err);
+      toast.error("Failed to load admin data");
+      // Fallback to direct queries
+      const [profilesRes, gensRes, templatesRes] = await Promise.all([
+        supabase.from("profiles").select("*").order("created_at", { ascending: false }),
+        supabase.from("article_generations").select("*").order("created_at", { ascending: false }),
+        supabase.from("prompt_templates").select("*").order("created_at", { ascending: false }),
+      ]);
 
-    // Count articles per user
-    const articleCounts: Record<string, number> = {};
-    articlesData.forEach((a: any) => {
-      articleCounts[a.user_id] = (articleCounts[a.user_id] || 0) + 1;
-    });
+      const profilesData = profilesRes.data ?? [];
+      const articlesData = gensRes.data ?? [];
 
-    const enrichedUsers: AdminUser[] = profilesData.map((p: any) => ({
-      ...p,
-      article_count: articleCounts[p.user_id] || 0,
-    }));
+      const articleCounts: Record<string, number> = {};
+      articlesData.forEach((a: any) => {
+        articleCounts[a.user_id] = (articleCounts[a.user_id] || 0) + 1;
+      });
 
-    // Map user emails to articles
-    const emailMap: Record<string, string> = {};
-    profilesData.forEach((p: any) => {
-      if (p.user_id && p.email) emailMap[p.user_id] = p.email;
-    });
+      const enrichedUsers: AdminUser[] = profilesData.map((p: any) => ({
+        ...p,
+        article_count: articleCounts[p.user_id] || 0,
+      }));
 
-    const enrichedArticles: AdminArticle[] = articlesData.map((a: any) => ({
-      ...a,
-      user_email: emailMap[a.user_id] || "Unknown",
-    }));
+      const emailMap: Record<string, string> = {};
+      profilesData.forEach((p: any) => {
+        if (p.user_id && p.email) emailMap[p.user_id] = p.email;
+      });
 
-    setUsers(enrichedUsers);
-    setArticles(enrichedArticles);
-    setTemplates((templatesRes.data as any[]) ?? []);
+      const enrichedArticles: AdminArticle[] = articlesData.map((a: any) => ({
+        ...a,
+        user_email: emailMap[a.user_id] || "Unknown",
+      }));
+
+      setUsers(enrichedUsers);
+      setArticles(enrichedArticles);
+      setTemplates((templatesRes.data as any[]) ?? []);
+
+      // Compute basic analytics from fallback data
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0);
+
+      setAnalytics({
+        totalUsers: enrichedUsers.length,
+        proUsers: enrichedUsers.filter((u) => u.plan === "pro").length,
+        totalArticles: enrichedArticles.length,
+        todayArticles: enrichedArticles.filter((a) => new Date(a.created_at) >= todayStart).length,
+        activeUsers: enrichedUsers.filter((u) => u.status === "active").length,
+        suspendedUsers: enrichedUsers.filter((u) => u.status === "suspended").length,
+        bannedUsers: enrichedUsers.filter((u) => u.status === "banned").length,
+        examArticles: enrichedArticles.filter((a) => a.exam_mode).length,
+        featuredArticles: enrichedArticles.filter((a) => a.featured).length,
+        dailyTrend: Array.from({ length: 7 }, (_, i) => {
+          const date = new Date(); date.setDate(date.getDate() - (6 - i)); date.setHours(0, 0, 0, 0);
+          const nextDay = new Date(date); nextDay.setDate(nextDay.getDate() + 1);
+          return { date: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }), count: enrichedArticles.filter((a) => new Date(a.created_at) >= date && new Date(a.created_at) < nextDay).length };
+        }),
+        userGrowth: Array.from({ length: 7 }, (_, i) => {
+          const date = new Date(); date.setDate(date.getDate() - (6 - i)); date.setHours(0, 0, 0, 0);
+          const nextDay = new Date(date); nextDay.setDate(nextDay.getDate() + 1);
+          return { date: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }), count: enrichedUsers.filter((u) => new Date(u.created_at) >= date && new Date(u.created_at) < nextDay).length };
+        }),
+        topUsers: [...enrichedUsers].sort((a, b) => (b.article_count || 0) - (a.article_count || 0)).slice(0, 10),
+        categoryBreakdown: {},
+        examTypeBreakdown: {},
+        recentArticles: enrichedArticles.slice(0, 5),
+        recentUsers: enrichedUsers.slice(0, 5),
+      });
+    }
     setLoading(false);
   }, []);
 
@@ -180,77 +261,21 @@ export function useAdminData() {
     await fetchData();
   };
 
-  // Analytics
-  const totalUsers = users.length;
-  const proUsers = users.filter((u) => u.plan === "pro").length;
-  const totalArticles = articles.length;
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
-  const todayArticles = articles.filter((g) => new Date(g.created_at) >= todayStart).length;
-
-  // Last 7 days trend
-  const dailyTrend = Array.from({ length: 7 }, (_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() - (6 - i));
-    date.setHours(0, 0, 0, 0);
-    const nextDay = new Date(date);
-    nextDay.setDate(nextDay.getDate() + 1);
-    const count = articles.filter(
-      (g) => new Date(g.created_at) >= date && new Date(g.created_at) < nextDay
-    ).length;
-    return {
-      date: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }),
-      count,
-    };
-  });
-
-  // User growth (last 7 days)
-  const userGrowth = Array.from({ length: 7 }, (_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() - (6 - i));
-    date.setHours(0, 0, 0, 0);
-    const nextDay = new Date(date);
-    nextDay.setDate(nextDay.getDate() + 1);
-    const count = users.filter(
-      (u) => new Date(u.created_at) >= date && new Date(u.created_at) < nextDay
-    ).length;
-    return {
-      date: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }),
-      count,
-    };
-  });
-
-  // Recent activity
-  const recentArticles = articles.slice(0, 5);
-  const recentUsers = users.slice(0, 5);
-
   return {
     users,
     articles,
     templates,
     loading,
     fetchData,
-    // User actions
     updatePlan,
     updateUserStatus,
     deleteUser,
-    // Article actions
     toggleArticleFeatured,
     updateArticleStatus,
     deleteArticle,
-    // Template actions
     createTemplate,
     updateTemplate,
     deleteTemplate,
-    analytics: {
-      totalUsers,
-      proUsers,
-      totalArticles,
-      todayArticles,
-      dailyTrend,
-      userGrowth,
-      recentArticles,
-      recentUsers,
-    },
+    analytics,
   };
 }
