@@ -73,6 +73,18 @@ const ArticlePreview = ({ article, isGenerating }: ArticlePreviewProps) => {
         </div>
       </header>
 
+      {/* Hero Image */}
+      {article.heroImage && (
+        <div className="rounded-xl overflow-hidden border border-border shadow-md">
+          <img
+            src={article.heroImage}
+            alt={article.seoTitle}
+            className="w-full h-auto object-cover max-h-[400px]"
+            loading="lazy"
+          />
+        </div>
+      )}
+
       <Separator className="my-2" />
 
       {/* Introduction - styled as a lead section */}
