@@ -11,6 +11,7 @@ export interface Article {
   keyPoints: string[];
   analysis: string;
   conclusion: string;
+  heroImage?: string;
   examSection?: {
     type: string;
     facts: string[];
@@ -71,6 +72,18 @@ const ArticlePreview = ({ article, isGenerating }: ArticlePreviewProps) => {
           ))}
         </div>
       </header>
+
+      {/* Hero Image */}
+      {article.heroImage && (
+        <div className="rounded-xl overflow-hidden border border-border shadow-md">
+          <img
+            src={article.heroImage}
+            alt={article.seoTitle}
+            className="w-full h-auto object-cover max-h-[400px]"
+            loading="lazy"
+          />
+        </div>
+      )}
 
       <Separator className="my-2" />
 
