@@ -79,7 +79,8 @@ Return a valid JSON object with this exact structure:
 
 IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanation.${languageInstruction}`;
 
-    const response = await fetch(
+    // Generate article and image in parallel
+    const articlePromise = fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
         method: "POST",
@@ -100,25 +101,49 @@ IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanat
       }
     );
 
-    if (!response.ok) {
-      if (response.status === 429) {
+    const imagePromise = fetch(
+      "https://ai.gateway.lovable.dev/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image",
+          messages: [
+            {
+              role: "user",
+              content: `Generate a professional, visually striking editorial illustration for a news article about: "${topic.trim()}". The image should be photorealistic or high-quality digital art, suitable as a hero image for a news website. Make it dramatic and eye-catching with rich colors. Do NOT include any text or watermarks in the image.`,
+            },
+          ],
+          modalities: ["image", "text"],
+        }),
+      }
+    );
+
+    const [articleResponse, imageResponse] = await Promise.all([articlePromise, imagePromise]);
+
+    // Process article response
+    if (!articleResponse.ok) {
+      if (articleResponse.status === 429) {
         return new Response(
           JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      if (response.status === 402) {
+      if (articleResponse.status === 402) {
         return new Response(
           JSON.stringify({ error: "AI credits exhausted. Please try again later." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
-      throw new Error(`AI gateway error: ${response.status}`);
+      const errorText = await articleResponse.text();
+      console.error("AI gateway error:", articleResponse.status, errorText);
+      throw new Error(`AI gateway error: ${articleResponse.status}`);
     }
 
-    const data = await response.json();
+    const data = await articleResponse.json();
     let content = data.choices?.[0]?.message?.content;
 
     if (!content) {
@@ -127,8 +152,27 @@ IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanat
 
     // Clean potential markdown code fences
     content = content.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
-
     const article = JSON.parse(content);
+
+    // Process image response
+    let heroImage: string | null = null;
+    try {
+      if (imageResponse.ok) {
+        const imageData = await imageResponse.json();
+        const imageUrl = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+        if (imageUrl) {
+          heroImage = imageUrl;
+        }
+      } else {
+        console.error("Image generation failed:", imageResponse.status);
+      }
+    } catch (imgErr) {
+      console.error("Image processing error:", imgErr);
+    }
+
+    if (heroImage) {
+      article.heroImage = heroImage;
+    }
 
     return new Response(JSON.stringify({ article }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

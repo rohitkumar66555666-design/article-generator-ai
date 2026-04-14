@@ -11,6 +11,7 @@ export interface Article {
   keyPoints: string[];
   analysis: string;
   conclusion: string;
+  heroImage?: string;
   examSection?: {
     type: string;
     facts: string[];
