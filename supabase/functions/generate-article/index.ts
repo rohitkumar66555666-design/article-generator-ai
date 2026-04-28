@@ -127,7 +127,7 @@ IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanat
             { role: "system", content: systemPrompt },
             {
               role: "user",
-              content: `Today's date is ${currentDate}. Write a comprehensive, up-to-date current affairs article (900-1200 words) about: "${topic.trim()}". Frame everything in the latest 2025-2026 context (${currentMonthYear}). Do NOT use 2024 or older data as the present. ${examPrompt}`,
+              content: `Today's date is ${currentDate}. Write a 100% human-style article (900-1200 words) on this EXACT topic: "${topic.trim()}". Write like an experienced Indian journalist/blogger — conversational, opinionated, with Indian context where it naturally fits. Frame everything in ${currentMonthYear} (latest 2025-2026 context, never 2024 as present). The article MUST pass AI detection tools: vary sentence length constantly, add personal opinions ("I think", "honestly"), use short 2-3 line paragraphs, mix in rhetorical questions and informal transitions, and AVOID robotic phrases like "In conclusion", "Furthermore", "It is worth noting", "delve into", "tapestry". ${examPrompt}`,
             },
           ],
         }),
