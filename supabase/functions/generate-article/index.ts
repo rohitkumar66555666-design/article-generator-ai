@@ -98,7 +98,7 @@ STRUCTURE:
 
 Return a valid JSON object with this exact structure:
 {
-  "seoTitle": "SEO-optimized, curiosity-inducing title (60 chars max)",
+  "seoTitle": "SEO-optimized, curiosity-inducing title that includes ${currentYear} or 2025-2026 (60 chars max)",
   "metaDescription": "Compelling meta description that makes people click (160 chars max)",
   "tags": ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6"],
   "introduction": "2-3 paragraphs with a powerful hook. (150+ words)",
