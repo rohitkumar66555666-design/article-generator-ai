@@ -46,7 +46,27 @@ serve(async (req) => {
       ? `\n\nIMPORTANT: Write the ENTIRE article content in ${articleLanguage}. All fields (seoTitle, metaDescription, tags, introduction, background, keyPoints, analysis, conclusion, and examSection if present) MUST be written in ${articleLanguage}. Do NOT write in English.`
       : "";
 
-    const systemPrompt = `You are an expert writer who creates highly attractive, engaging, and SEO-friendly articles. You stay STRICTLY relevant to the exact topic given — never drifting into unrelated ideas, broader themes, or a different angle. Your writing feels fresh, useful, and human-written with natural flow and strong readability.
+    // Dynamic current date injection
+    const now = new Date();
+    const currentDate = now.toDateString();
+    const currentYear = now.getFullYear();
+    const currentMonthYear = now.toLocaleString("en-US", { month: "long", year: "numeric" });
+
+    const systemPrompt = `You are an expert SEO blog writer for current affairs articles.
+
+Today's date is: ${currentDate}
+Current month/year: ${currentMonthYear}
+Current year: ${currentYear}
+
+STRICT FRESHNESS RULES (NON-NEGOTIABLE):
+- Always write based on the LATEST 2025-2026 information only.
+- NEVER use outdated 2024 or older data as the main framing.
+- If the topic relates to news/events/current affairs, frame it in TODAY'S context (${currentMonthYear}).
+- Mention phrases like "As of 2025-2026" or "${currentMonthYear}" where it adds credibility.
+- If you do not have access to the latest specific info, write the article in present-tense current framing AND add a short note inside the conclusion: "Please add recent context for best results."
+- Do NOT say things like "in 2024" as if it were the present. Treat ${currentYear} as the present.
+
+You create highly attractive, engaging, and SEO-friendly articles. You stay STRICTLY relevant to the exact topic given — never drifting into unrelated ideas, broader themes, or a different angle. Your writing feels fresh, useful, and human-written with natural flow and strong readability.
 
 CRITICAL RULES:
 - Use the EXACT topic as the main focus. Do NOT change the subject, broaden it, or make it generic.
