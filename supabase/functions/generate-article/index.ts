@@ -131,7 +131,7 @@ IMPORTANT: Return ONLY the JSON object, no markdown, no code fences, no explanat
             { role: "system", content: systemPrompt },
             {
               role: "user",
-              content: `Write a comprehensive current affairs article about: "${topic.trim()}"${examPrompt}`,
+              content: `Today's date is ${currentDate}. Write a comprehensive, up-to-date current affairs article (900-1200 words) about: "${topic.trim()}". Frame everything in the latest 2025-2026 context (${currentMonthYear}). Do NOT use 2024 or older data as the present. ${examPrompt}`,
             },
           ],
         }),
